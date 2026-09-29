@@ -1,39 +1,5 @@
-import { registerAdminService , loginAdminService  } from "../services/authservice.js";
-
-export const registerAdmin = async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
-
-    if (!name || !email || !password) {
-      return res.status(400).json({
-        success: false,
-        message: "Name, email and password are required",
-      });
-    }
-
-    const admin = await registerAdminService(name, email, password);
-
-    return res.status(201).json({
-      success: true,
-      message: "Admin created successfully",
-      admin,
-    });
-  } catch (error) {
-    console.error("Register Admin Error:", error.message);
-
-    if (error.message === "Admin already exists") {
-      return res.status(409).json({
-        success: false,
-        message: error.message,
-      });
-    }
-
-    return res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-};
+import { loginAdminService  } from "../services/authservice.js";
+import { pool } from "../config/db.js";
 export const loginAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -44,7 +10,13 @@ export const loginAdmin = async (req, res) => {
         message: "Email and password are required",
       });
     }
-
+    if(email!==process.env.ADMIN_USER || password!==process.env.ADMIN_PASSWORD)
+    {
+      console.log("Password match:", email=== process.env.ADMIN_USER);
+      console.log("Password match:", password === process.env.ADMIN_PASSWORD);
+    return res.status(401).json({success:false,message:"Invalid email and password"});
+    console.log("api hit")
+  }
     const result = await loginAdminService(email, password);
 
     return res.status(200).json({
@@ -52,7 +24,8 @@ export const loginAdmin = async (req, res) => {
       message: "Login successful",
       ...result,
     });
-  } catch (error) {
+  
+ } catch (error) {
     console.error("Login Admin Error:", error.message);
 
     if (error.message === "Invalid email or password") {
