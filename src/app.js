@@ -6,6 +6,7 @@ import rateLimit from "express-rate-limit";
 import authRoutes from './routes/authroute.js'
 import aboutRoutes from './routes/aboutroute.js'
 import projectRoutes from './routes/projectroute.js'
+import skillRoutes from './routes/skillroute.js'
 const app = express();
 
 app.use(helmet());
@@ -38,6 +39,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/admin",aboutRoutes);
-app.use("/api/project",projectRoutes)
+app.use("/api/project",projectRoutes);
+app.use("/api/skill",skillRoutes)
 
 export default app;
