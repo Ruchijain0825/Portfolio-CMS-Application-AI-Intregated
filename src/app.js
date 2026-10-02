@@ -7,6 +7,8 @@ import authRoutes from './routes/authroute.js'
 import aboutRoutes from './routes/aboutroute.js'
 import projectRoutes from './routes/projectroute.js'
 import skillRoutes from './routes/skillroute.js'
+import experienceRoutes from "./routes/experienceroute.js";
+import educationRoutes from "./routes/educationroute.js";
 const app = express();
 
 app.use(helmet());
@@ -40,6 +42,8 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/admin",aboutRoutes);
 app.use("/api/project",projectRoutes);
-app.use("/api/skill",skillRoutes)
+app.use("/api/skill",skillRoutes);
+app.use("/api/experience", experienceRoutes);
+app.use("/api/education", educationRoutes)
 
 export default app;
