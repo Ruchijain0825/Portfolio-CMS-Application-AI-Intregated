@@ -9,6 +9,7 @@ import projectRoutes from './routes/projectroute.js'
 import skillRoutes from './routes/skillroute.js'
 import experienceRoutes from "./routes/experienceroute.js";
 import educationRoutes from "./routes/educationroute.js";
+import recruiterRoutes from  "./routes/recruiterroute.js"
 const app = express();
 
 app.use(helmet());
@@ -21,10 +22,28 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  process.env.PORTFOLIO_URL,
+].filter(Boolean);
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: (origin, callback) => {
+      console.log("REQUEST ORIGIN:", origin);
+      console.log("ALLOWED ORIGINS:", allowedOrigins);
+
+      // Postman / direct server requests
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   })
 );
@@ -45,5 +64,6 @@ app.use("/api/project",projectRoutes);
 app.use("/api/skill",skillRoutes);
 app.use("/api/experience", experienceRoutes);
 app.use("/api/education", educationRoutes)
+app.use("/api/recruiter-message",recruiterRoutes);
 
 export default app;

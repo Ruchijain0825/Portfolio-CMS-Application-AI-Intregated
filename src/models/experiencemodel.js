@@ -17,7 +17,7 @@ export const createExperience = async (
 ) => {
   const result = await pool.query(
     `
-    INSERT INTO experience
+    INSERT INTO experiences
     (
       company_name,
       job_title,
@@ -61,7 +61,7 @@ export const getExperiences = async () => {
   const result = await pool.query(
     `
     SELECT *
-    FROM experience
+    FROM experiences
     ORDER BY display_order ASC, created_at DESC
     `
   );
@@ -75,7 +75,7 @@ export const getExperienceById = async (id) => {
   const result = await pool.query(
     `
     SELECT *
-    FROM experience
+    FROM experiences
     WHERE id = $1
     `,
     [id]
@@ -103,7 +103,7 @@ export const updateExperience = async (
 ) => {
   const result = await pool.query(
     `
-    UPDATE experience
+    UPDATE experiences
     SET
       company_name = $1,
       job_title = $2,
@@ -146,7 +146,7 @@ export const updateExperience = async (
 export const deleteExperience = async (id) => {
   const result = await pool.query(
     `
-    DELETE FROM experience
+    DELETE FROM experiences
     WHERE id = $1
     RETURNING *
     `,

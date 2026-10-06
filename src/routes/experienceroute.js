@@ -1,50 +1,19 @@
 import express from "express";
 
 import {
-    createEducationController,
-    getEducationsController,
-    getEducationController,
-    updateEducationController,
-    deleteEducationController
-} from "../controllers/educationcontroller.js";
+  createExperienceController,
+  getExperiencesController,
+  getExperienceController,
+  updateExperienceController,
+  deleteExperienceController,
+} from "../controllers/experiencecontroller.js";
 
+const router = express.Router();
 
-const educationRouter = express.Router();
+router.post("/", createExperienceController);
+router.get("/", getExperiencesController);
+router.get("/:id", getExperienceController);
+router.put("/:id", updateExperienceController);
+router.delete("/:id", deleteExperienceController);
 
-
-// Create
-educationRouter.post(
-    "/",
-    createEducationController
-);
-
-
-// Get all
-educationRouter.get(
-    "/",
-    getEducationsController
-);
-
-
-// Get one
-educationRouter.get(
-    "/:id",
-    getEducationController
-);
-
-
-// Update
-educationRouter.put(
-    "/:id",
-    updateEducationController
-);
-
-
-// Delete
-educationRouter.delete(
-    "/:id",
-    deleteEducationController
-);
-
-
-export default educationRouter;
+export default router;

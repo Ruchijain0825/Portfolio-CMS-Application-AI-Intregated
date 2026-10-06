@@ -7,7 +7,7 @@ import {
 } from "../models/educationmodel.js";
 
 
-// POST /api/education
+
 export const createEducationController = async (req, res) => {
   try {
     const {
@@ -48,13 +48,13 @@ export const createEducationController = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("CREATE EDUCATION ERROR:", error);
+  console.error("CREATE EDUCATION ERROR:", error);
 
-    return res.status(500).json({
-      success: false,
-      message: "Failed to create education",
-    });
-  }
+  return res.status(500).json({
+    success: false,
+    message: error.message,
+  });
+}
 };
 
 
