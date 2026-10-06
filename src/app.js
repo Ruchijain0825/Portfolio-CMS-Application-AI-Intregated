@@ -24,7 +24,7 @@ const limiter = rateLimit({
 app.use(limiter);
 const allowedOrigins = [
   process.env.FRONTEND_URL,
-  process.env.PORTFOLIO_URL,
+  process.env.PORTFOLIO_URL||"https://porfolio-cms-application-frontend-i7i96kuyy-ruchi5.vercel.app/"
 ].filter(Boolean);
 
 app.use(
