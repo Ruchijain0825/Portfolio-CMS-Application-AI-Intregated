@@ -58,12 +58,12 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api/auth", authRoutes);
-app.use("/api/admin",aboutRoutes);
-app.use("/api/project",projectRoutes);
-app.use("/api/skill",skillRoutes);
-app.use("/api/experience", experienceRoutes);
-app.use("/api/education", educationRoutes)
-app.use("/api/recruiter-message",recruiterRoutes);
+app.use("/auth", authRoutes);
+app.use("/admin",aboutRoutes);
+app.use("/project",projectRoutes);
+app.use("/skill",skillRoutes);
+app.use("/experience", experienceRoutes);
+app.use("/education", educationRoutes)
+app.use("/recruiter-message",recruiterRoutes);
 
 export default app;
